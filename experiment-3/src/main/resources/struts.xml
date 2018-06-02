@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <package name="action" extends="struts-default" namespace="/">
+        <action name="login" class="login" method="execute">
+            <result name="success">/main.jsp</result>
+            <result name="teacher">/teacher.jsp</result>
+            <result name="error">/error.jsp</result>
+            <result name="new">/first.jsp</result>
+        </action>
+        <action name="register" class="register" method="execute">
+            <result name="success">/first.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="reflesh" class="reflesh" method="execute">
+            <result name="success">/main.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="addme" class="addme" method="execute">
+            <result name="success">/projects.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+
+        <action name="addhobby" class="addhobby" method="execute">
+            <result name="success">/main.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="addedu" class="addedu" method="execute">
+            <result name="success">/main.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="addjob" class="addjob" method="execute">
+            <result name="success">/main.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="deleteme" class="deleteme" method="execute">
+            <result name="success">/projects.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="search" class="search" method="dosearch">
+            <result>index.jsp</result>
+        </action>
+        <action name="addmetocourse" class="addmetocourse" method="execute">
+            <result name="success">/course.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="deletemefromcourse" class="deletemefromcourse" method="execute">
+            <result name="success">/course.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="addcourse" class="addcourse" method="execute">
+            <result name="success">/teacher.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="addresearch" class="addresearch" method="execute">
+            <result name="success">/teacher.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+    </package>
+</struts>

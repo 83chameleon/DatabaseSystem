@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>SQL查询</title>
+    <style>
+        .container{
+            height: 95%;
+        }
+        .well{
+            margin:0 auto;
+            text-align: center;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+<br>
+<div id="app" class="container well" style="background-color :#f5f5f5">
+    <div class="form-horizontal" onkeyup="search()">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Number" class="col-md-3 control-label">查询序号：</label>
+                <input id="Number" class="col-md-4" v-model="Number" type="text">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Parameters" class="col-md-2 control-label">查询参数：</label>
+                <input id="Parameters" class="col-md-3" v-model="Parameters" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 alert alert-success" id="alert">
+        <textarea id="sql" rows="3" class="col-md-12" readonly="readonly" style="border: none;overflow: hidden">{{ SQL }}</textarea>
+    </div>
+    <div id="StudentTable" style="width: 100%; max-height:330px;overflow-y: scroll;">
+        <table class="table table-bordered table-hover" id="student">
+        </table>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            Number: "",
+            Parameters: ""
+        },
+        computed: {
+            SQL: function () {
+                return `student query -q ${this.Number} -p ${this.Parameters}`;
+            }
+        }
+    })
+
+    //    $(document).ready(function(){
+    //        setInterval(search,500);
+    //    });
+
+    function search(){
+        if($("#Number").val()!= "" && $("#Parameters").val()!= ""){
+            $.ajax({
+                url:"search",
+                type:"POST",
+                cache:"false",
+                dataType:"json",
+                data:{Number:$("#Number").val(), Parameters:$("#Parameters").val()},
+                success: function (jsonArray){
+                    jsonArray = jsonArray.jsonArray;
+                    var tableStr = null;
+                    $("tr").remove();
+                    tableStr+='<tr>';
+                    for(var key in jsonArray[0]){
+                        tableStr = tableStr + '<th>'+ key +'</th>';
+                    }
+                    tableStr+='</tr>';
+                    for(var i in jsonArray){
+                        tableStr+='<tr>';
+                        for(var key in jsonArray[i]){
+                            tableStr = tableStr + '<th>'+ jsonArray[i][key] +'</th>';
+                        }
+                        tableStr+='</tr>';
+                    }
+                    $("#student").append(tableStr);
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>
